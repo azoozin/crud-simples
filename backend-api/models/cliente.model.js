@@ -13,10 +13,9 @@ export const ClienteModel = {
         return rows[0];
     },
 
-    // refatorar sem o [res]
     async criarClienteNovo(dadosClienteNovo) {
         const { nome, email, telefone } = dadosClienteNovo;
-        const [res] = await pool.query(
+        await pool.query(
             "INSERT INTO clientes (nome, email, telefone) VALUES (?, ?, ?)",
             [nome, email, telefone]
         );
