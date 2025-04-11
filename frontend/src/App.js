@@ -1,6 +1,8 @@
 import GlobalStyle from "./styles/global-style.js";
 import styled from "styled-components";
+import { useState } from "react";
 import Form from "./components/Form.js";
+import Grid from "./components/Grid.js";
 
 const Container = styled.div`
     width: 100%;
@@ -20,6 +22,7 @@ function App() {
             <Container>
                 <Title>Produtos</Title>
                 <Form />
+                <Grid />
             </Container>
             <GlobalStyle />
         </>
