@@ -9,7 +9,7 @@ import produtoRouter from "./routes/produto.route.js";
 dotenv.config();
 
 const app = express();
-const PORT = process.envPORT || 3000;
+const PORT = process.envPORT || 3001;
 
 // middleware
 app.use(express.json());
