@@ -37,4 +37,12 @@ export const ProdutoModel = {
         );
         return produtoAt[0];
     },
+
+    // DELETE
+    async removerProduto(idProduto) {
+        const [result] = await pool.query("DELETE FROM produtos WHERE id = ?", [
+            idProduto,
+        ]);
+        return result.affectedRows > 0;
+    },
 };

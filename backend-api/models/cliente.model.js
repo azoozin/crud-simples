@@ -43,6 +43,6 @@ export const ClienteModel = {
         const [result] = await pool.query("DELETE FROM clientes WHERE id = ?", [
             idCliente,
         ]);
-        return result.affectedRows > 0; // retorna true/false
+        return result.affectedRows > 0;
     },
 };
