@@ -20,4 +20,18 @@ export const ProdutoModel = {
             [produto, categoria, quantidade]
         );
     },
+
+    async atualizarProduto(idProduto, dadosProduto) {
+        const { produto, categoria, quantidade } = dadosProduto;
+        await pool.query(
+            "UPDATE produtos SET produto=?, categoria=?, quantidade=? WHERE id=?",
+            [produto, categoria, quantidade, idProduto]
+        );
+
+        const [produtoAt] = await pool.query(
+            "SELECT * FROM produtos WHERE id = ?",
+            [idProduto]
+        );
+        return produtoAt[0];
+    },
 };
