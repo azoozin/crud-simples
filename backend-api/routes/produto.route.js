@@ -7,5 +7,6 @@ produtoRouter.get("/", ProdutoController.listaDeProdutos);
 produtoRouter.get("/:id", ProdutoController.listaDeProdutosPorId);
 produtoRouter.post("/", ProdutoController.criarProduto);
 produtoRouter.put("/:id", ProdutoController.atualizarProduto);
+produtoeRouter.delete("/:id", ProdutoController.removerProduto);
 
 export default produtoRouter;
