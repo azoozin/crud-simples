@@ -1,6 +1,7 @@
 import { pool } from "../database.js";
 
 export const ProdutoModel = {
+    // GET
     async buscarTodosProdutos() {
         const [rows] = await pool.query("SELECT * FROM produtos");
         return rows;
@@ -13,6 +14,7 @@ export const ProdutoModel = {
         return rows[0];
     },
 
+    // POST
     async criarProdutoNovo(dadosProdutoNovo) {
         const { produto, categoria, quantidade } = dadosProdutoNovo;
         await pool.query(
@@ -21,6 +23,7 @@ export const ProdutoModel = {
         );
     },
 
+    // PUT
     async atualizarProduto(idProduto, dadosProduto) {
         const { produto, categoria, quantidade } = dadosProduto;
         await pool.query(

@@ -1,6 +1,7 @@
 import { pool } from "../database.js";
 
 export const ClienteModel = {
+    // GET
     async buscarTodosClientes() {
         const [rows] = await pool.query("SELECT * FROM clientes");
         return rows;
@@ -13,6 +14,7 @@ export const ClienteModel = {
         return rows[0];
     },
 
+    // POST
     async criarClienteNovo(dadosClienteNovo) {
         const { nome, email, telefone } = dadosClienteNovo;
         await pool.query(
@@ -21,6 +23,7 @@ export const ClienteModel = {
         );
     },
 
+    // PUT
     async atualizarCliente(idCliente, dadosCliente) {
         const { nome, email, telefone } = dadosCliente;
         await pool.query(
@@ -35,6 +38,7 @@ export const ClienteModel = {
         return cliente[0];
     },
 
+    // DELETE
     async removerCliente(idCliente) {
         const [result] = await pool.query("DELETE FROM clientes WHERE id = ?", [
             idCliente,
