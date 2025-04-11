@@ -30,9 +30,33 @@ export const listaDeProdutosPorId = async (req, res) => {
     }
 };
 
+// POST
+export const criarProduto = async (req, res) => {
+    try {
+        // validar os dados do produto
+        // nome do produto e categoria obrigatorios
+        // quantidade default 0
+        if (!req.body.produto || !req.body.categoria) {
+            return res.status(400).json({
+                message:
+                    "Produto (nome do produto) e categoria são necessários para criar produto.",
+            });
+        }
+
+        const produtoNovo = await ProdutoModel.criarClienteNovo(req.body);
+        res.status(200).json(produtoNovo);
+    } catch (error) {
+        res.status(500).json({
+            message: "Erro ao criar produto.",
+            error: error.message,
+        });
+    }
+};
+
 const ProdutoController = {
     listaDeProdutos,
     listaDeProdutosPorId,
+    criarProduto,
 };
 
 export default ProdutoController;
