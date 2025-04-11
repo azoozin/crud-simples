@@ -5,5 +5,6 @@ const produtoRouter = express.Router();
 
 produtoRouter.get("/", ProdutoController.listaDeProdutos);
 produtoRouter.get("/:id", ProdutoController.listaDeProdutosPorId);
+produtoRouter.post("/", ProdutoController.criarProduto);
 
 export default produtoRouter;
