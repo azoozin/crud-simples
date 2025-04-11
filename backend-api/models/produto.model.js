@@ -12,4 +12,12 @@ export const ProdutoModel = {
         ]);
         return rows[0];
     },
+
+    async criarProdutoNovo(dadosProdutoNovo) {
+        const { produto, categoria, quantidade } = dadosProdutoNovo;
+        await pool.query(
+            "INSERT INTO produtos (produto, categoria, quantidade) VALUES (?, ?, ?)",
+            [produto, categoria, quantidade]
+        );
+    },
 };
