@@ -73,6 +73,7 @@ const ProdutoController = {
     listaDeProdutos,
     listaDeProdutosPorId,
     criarProduto,
+    atualizarProduto,
 };
 
 export default ProdutoController;
