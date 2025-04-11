@@ -40,8 +40,16 @@ function App() {
         <>
             <Container>
                 <Title>Produtos</Title>
-                <Form />
-                <Grid produtos={produtos} />
+                <Form
+                    onEdit={onEdit}
+                    setOnEdit={setOnEdit}
+                    getProdutos={getProdutos}
+                />
+                <Grid
+                    produtos={produtos}
+                    setProdutos={setProdutos}
+                    setOnEdit={setOnEdit}
+                />
             </Container>
             <GlobalStyle />
         </>

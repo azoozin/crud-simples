@@ -27,7 +27,24 @@ export const Td = styled.td`
     width: ${(props) => (props.width ? props.width : "auto")};
 `;
 
-const Grid = ({ produtos }) => {
+const Grid = ({ produtos, setProdutos, setOnEdit }) => {
+    const handleDelete = async (id) => {
+        await axios
+            .delete("http://localhost:3001/produtos/" + id)
+            .then(({ data }) => {
+                const arr = produtos.filter((produto) => produto.id != id);
+
+                setProdutos(arr);
+            })
+            .catch(() => alert("Erro ao deletar."));
+
+        setOnEdit(null);
+    };
+
+    const handleEdit = (item) => {
+        setOnEdit(item);
+    };
+
     return (
         <Table>
             <Thead>
@@ -47,10 +64,10 @@ const Grid = ({ produtos }) => {
                         <Td width="30%">{item.quantidade}</Td>
 
                         <Td alignCenter width="5%">
-                            <FaEdit />
+                            <FaEdit onClick={() => handleEdit(item)} />
                         </Td>
                         <Td alignCenter width="5%">
-                            <FaTrash />
+                            <FaTrash onClick={() => handleDelete(item.id)} />
                         </Td>
                     </Tr>
                 ))}

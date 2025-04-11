@@ -1,5 +1,6 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import styled from "styled-components";
+import axios from "axios";
 
 const FormContainer = styled.form`
     display: flex;
@@ -37,11 +38,60 @@ const Button = styled.button`
 
 const Label = styled.label``;
 
-const Form = ({ onEdit }) => {
+const Form = ({ getProdutos, onEdit, setOnEdit }) => {
     const ref = useRef();
 
+    useEffect(() => {
+        if (onEdit && ref.current) {
+            ref.current["nome-produto"].value = onEdit.produto;
+            ref.current["categoria-produto"].value = onEdit.categoria;
+            ref.current["quantidade-produto"].value = onEdit.quantidade;
+        }
+    }, [onEdit]);
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        if (!ref.current) return;
+
+        const form = ref.current;
+        const produto = form["nome-produto"].value;
+        const categoria = form["categoria-produto"].value;
+        const quantidade = form["quantidade-produto"].value;
+
+        if (!produto || !categoria || !quantidade) {
+            alert("Por favor, informe todos os dados do produto.");
+            return;
+        }
+
+        try {
+            if (onEdit) {
+                await axios.put(`http://localhost:3001/produtos/${onEdit.id}`, {
+                    produto,
+                    categoria,
+                    quantidade,
+                });
+                alert("Produto atualizado.");
+            } else {
+                await axios.post("http://localhost:3001/produtos", {
+                    produto,
+                    categoria,
+                    quantidade,
+                });
+                alert("Produto adicionado.");
+            }
+
+            form.reset();
+            setOnEdit(null);
+            getProdutos();
+        } catch (error) {
+            console.error("Erro:", error);
+            alert("Ocorreu um erro, tente novamente.");
+        }
+    };
+
     return (
-        <FormContainer ref={ref}>
+        <FormContainer ref={ref} onSubmit={handleSubmit}>
             <InputArea>
                 <Label>Produto</Label>
                 <Input name="nome-produto" />
@@ -54,7 +104,6 @@ const Form = ({ onEdit }) => {
                 <Label>Quantidade</Label>
                 <Input name="quantidade-produto" />
             </InputArea>
-
             <Button type="submit">Salvar</Button>
         </FormContainer>
     );
