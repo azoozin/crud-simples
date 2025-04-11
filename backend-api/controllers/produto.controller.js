@@ -53,6 +53,22 @@ export const criarProduto = async (req, res) => {
     }
 };
 
+// PUT
+export const atualizarProduto = async (req, res) => {
+    try {
+        const produtoAtualizado = await ProdutoModel.atualizarProduto(
+            req.params.id,
+            req.body
+        );
+        res.json(produtoAtualizado);
+    } catch (error) {
+        res.status(500).json({
+            message: "Erro ao tentar atualizar produto.",
+            error: error.message,
+        });
+    }
+};
+
 const ProdutoController = {
     listaDeProdutos,
     listaDeProdutosPorId,
