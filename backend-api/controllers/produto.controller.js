@@ -69,11 +69,38 @@ export const atualizarProduto = async (req, res) => {
     }
 };
 
+// DELETE
+export const removerProduto = async (req, res) => {
+    try {
+        if (isNaN(req.params.id)) {
+            return res.status(400).json({ message: "ID do produto inválido." });
+        }
+
+        const produtoFoiRemovido = await ProdutoModel.removerProduto(
+            req.params.id
+        );
+
+        if (!produtoFoiRemovido) {
+            return res
+                .status(404)
+                .json({ message: "Produto a ser removido não encontrado." });
+        }
+
+        res.status(204).end();
+    } catch (error) {
+        res.status(500).json({
+            message: "Erro ao tentar remover o produto.",
+            error: error.message,
+        });
+    }
+};
+
 const ProdutoController = {
     listaDeProdutos,
     listaDeProdutosPorId,
     criarProduto,
     atualizarProduto,
+    removerProduto,
 };
 
 export default ProdutoController;
