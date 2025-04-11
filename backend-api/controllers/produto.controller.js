@@ -43,7 +43,7 @@ export const criarProduto = async (req, res) => {
             });
         }
 
-        const produtoNovo = await ProdutoModel.criarClienteNovo(req.body);
+        const produtoNovo = await ProdutoModel.criarProdutoNovo(req.body);
         res.status(200).json(produtoNovo);
     } catch (error) {
         res.status(500).json({
